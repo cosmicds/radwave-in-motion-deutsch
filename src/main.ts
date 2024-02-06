@@ -1,4 +1,5 @@
 import Vue, { createApp } from "vue";
+import "../assets/common.less";
 
 import { FundingAcknowledgment, IconButton, CreditLogos, wwtHUD } from "@cosmicds/vue-toolkit";
 import Radwave from "./Radwave.vue";
