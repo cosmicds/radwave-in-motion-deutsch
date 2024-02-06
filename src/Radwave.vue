@@ -345,7 +345,7 @@
 
 <script lang="ts">
 import { defineComponent, PropType } from "vue";
-import { MiniDSBase, BackgroundImageset, skyBackgroundImagesets, D2R } from "@minids/common";
+import { MiniDSBase, BackgroundImageset, skyBackgroundImagesets, D2R } from "@cosmicds/vue-toolkit";
 import { Annotation, Color, PolyLine, SpaceTimeController, SpreadSheetLayer, WWTControl } from "@wwtelescope/engine";
 
 // Coordinates isn't exposed to TypeScript, but it IS exported at the JS module level,
