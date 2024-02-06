@@ -49,7 +49,7 @@
           </p>
         </div>
         <div id="splash-screen-acknowledgements">
-          This Mini Data Story is brought to you by <a href="https://www.cosmicds.cfa.harvard.edu/" target="_blank" rel="noopener noreferrer">Cosmic Data Stories</a> and <a href="https://www.worldwidetelescope.org/home/" target="_blank" rel="noopener noreferrer">WorldWide Telescope</a>.
+          Brought to you by <a href="https://www.cosmicds.cfa.harvard.edu/" target="_blank" rel="noopener noreferrer">Cosmic Data Stories</a> and <a href="https://www.worldwidetelescope.org/home/" target="_blank" rel="noopener noreferrer">WorldWide Telescope</a>.
           
           <div id="splash-screen-logos">
             <credit-logos/>
@@ -308,9 +308,9 @@
                     <v-col cols="12">
                       <div class="credits">
                       <h3>Credits:</h3>
-                      <h4><a href="https://www.cosmicds.cfa.harvard.edu/" target="_blank" rel="noopener noreferrer">CosmicDS</a> Mini Stories Team:</h4>
-                      John Lewis<br>
+                      <h4><a href="https://www.cosmicds.cfa.harvard.edu/" target="_blank" rel="noopener noreferrer">CosmicDS</a> Team:</h4>
                       Jon Carifio<br>
+                      John Lewis<br>
                       Pat Udomprasert<br>
                       Alyssa Goodman<br>
                       Mary Dussault<br>
@@ -612,7 +612,7 @@ export default defineComponent({
   computed: {
 
     /**
-    These properties relate to the state of the mini.
+    These properties relate to the state of the data story.
     `isLoading` is a bit redundant here, but it could potentially have
     independent logic.
     */
