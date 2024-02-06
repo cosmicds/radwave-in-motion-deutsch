@@ -1,6 +1,6 @@
 import Vue, { createApp } from "vue";
 
-import { FundingAcknowledgment, IconButton, CreditLogos, wwtHUD } from "@minids/common";
+import { FundingAcknowledgment, IconButton, CreditLogos, wwtHUD } from "@cosmicds/vue-toolkit";
 import Radwave from "./Radwave.vue";
 
 import vuetify from "../plugins/vuetify";
@@ -29,7 +29,7 @@ library.add(faVideo);
 const update = (el: HTMLElement, binding: Vue.DirectiveBinding) => el.style.visibility = (binding.value) ? "hidden" : "";
 
 createApp(Radwave, {
-  wwtNamespace: "wwt-minids-radwave"
+  wwtNamespace: "radwave-in-motion"
 })
  
   // Plugins
