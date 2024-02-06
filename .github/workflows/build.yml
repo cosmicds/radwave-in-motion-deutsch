@@ -22,6 +22,12 @@ jobs:
         with:
           node-version: '18.17.1'
 
+      - name: Enable corepack
+        run: corepack enable
+
+      - name: Set Yarn version
+        run: yarn set version 3.3.0
+
       - name: Yarn install
         run: yarn install
 
