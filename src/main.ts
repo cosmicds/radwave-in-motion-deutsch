@@ -2,7 +2,6 @@ import Vue, { createApp } from "vue";
 
 import { FundingAcknowledgment, IconButton, CreditLogos, wwtHUD } from "@minids/common";
 import Radwave from "./Radwave.vue";
-import "../../assets/common.less";
 
 import vuetify from "../plugins/vuetify";
 
