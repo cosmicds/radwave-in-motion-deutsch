@@ -98,6 +98,16 @@
     <div class="top-content">
       <div v-if="modeReactive != null" id="left-buttons">
         <icon-button
+          fa-icon="house"
+          @activate="() => {
+            positionReset();
+            timeReset();
+          }"
+          :color="buttonColor"
+          tooltip-text="Reset this view"
+          tooltip-location="start"
+        ></icon-button>
+        <icon-button
           v-model="showTextSheet"
           fa-icon="book-open"
           :color="buttonColor"
@@ -113,7 +123,6 @@
           tooltip-location="start"
         >
         </icon-button>
-        
       </div>
       <div id="center-buttons">
 <!-- <p class="pointer-events"> {{ wwtPosition }} </p> -->
@@ -143,12 +152,20 @@
         </template>
         </icon-button>
         <icon-button
-          md-icon="mdi-refresh"
-          @activate="positionReset"
+          v-if="(playCount > 0) && modeReactive=='3D'"
+          @activate="() => {
+            positionReset();
+            timeReset();
+            playing=true;
+          }"
           :color="buttonColor"
-          tooltip-text="Reset this view"
-          tooltip-location="start"
-        ></icon-button>
+          tooltip-text="Replay Wave Motion"
+          tooltip-location="end"
+        >
+        <template v-slot:button>
+          Replay
+        </template>
+        </icon-button>
         
         
         
@@ -164,17 +181,17 @@
     <div class="bottom-content">
       <div v-if="modeReactive != '2D'" id="time-controls">
         <icon-button
-          v-model="playing"
-          :fa-icon="playing ? 'pause' : 'play'"
+          id="play-pause-icon"
+          :fa-icon="!(playing) ? 'play' : 'pause'"
+          @activate="() => {
+            playing = !(playing);
+          }"
           :color="buttonColor"
           tooltip-text="Play/Pause"
           tooltip-location="top"
           tooltip-offset="5px"
-        >
-        <template v-slot:button>
-          <span class="no-select">{{ playing ? 'Pause' : 'Replay' }} the Wave!</span>
-        </template>
-      </icon-button>
+          :show-tooltip="!mobile"
+        ></icon-button>
         <input
           type="range"
           id="time-slider"
@@ -502,13 +519,13 @@ export default defineComponent({
     }  as GotoRADecZoomParams;
     
     return {
-      showSplashScreen: true,
+      showSplashScreen: false, //Action needed!! reset to true
       backgroundImagesets: [] as BackgroundImageset[],
       sheet: null as SheetType,
       layersLoaded: false,
       positionSet: false,
       
-      userNotReady: true,
+      userNotReady: false, //Action needed!! reset to true
 
       
       accentColor: "#427cff",
@@ -818,7 +835,7 @@ export default defineComponent({
         
       } else if (this.modeReactive == "3D") {
         this.position3D = this.initialCameraParams;
-        pos = this.position3D;
+        pos = this.position3D; 
       } else if (this.modeReactive == 'full') {
         pos = this.fullwavePosition;
       }
@@ -832,6 +849,15 @@ export default defineComponent({
       });
       
       
+    },
+
+    timeReset() {
+      this.playing = false;
+      phase = 0;
+      const time = startTime;
+      updateSlider(phase);
+      updateBestFitAnnotations(phase);
+      this.setTime(new Date(time));
     },
     
     shinkWWT(aspect: number = null as unknown as number) {
