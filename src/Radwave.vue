@@ -183,6 +183,7 @@
         <icon-button
           id="play-pause-icon"
           :fa-icon="!(playing) ? 'play' : 'pause'"
+          fa-size='xl'
           @activate="() => {
             playing = !(playing);
           }"
@@ -501,7 +502,7 @@ export default defineComponent({
   data() {
     const initialOpacity = 0.5;
     const fadeStartPhase = 100;
-    const fadeEndPhase = 180;
+    const fadeEndPhase = 270;
     const phaseOpacitySlope = -initialOpacity / (fadeEndPhase - fadeStartPhase);
     const phaseOpacityIntercept = initialOpacity * fadeEndPhase / (fadeEndPhase - fadeStartPhase);
     const initial2DPosition = {
@@ -519,7 +520,7 @@ export default defineComponent({
     }  as GotoRADecZoomParams;
     
     return {
-      showSplashScreen: false, //Action needed!! reset to true
+      showSplashScreen: true, //Action needed!! reset to true
       backgroundImagesets: [] as BackgroundImageset[],
       sheet: null as SheetType,
       layersLoaded: false,
@@ -957,7 +958,7 @@ export default defineComponent({
     setupClusterLayers(): Promise<SpreadSheetLayer[]> {
       const color = Color.load(this.clusterColor);
       const promises: Promise<SpreadSheetLayer>[] = [];
-      for (let phase = -15; phase < 180; phase++) {
+      for (let phase = -15; phase < this.fadeEndPhase; phase++) {
         const prom = import(`./assets/radwave/RW_cluster_oscillation_${phase}_updated_radec.csv`).then(res => {
           let text = res.default;
           text = text.replace(/\n/g, "\r\n");
@@ -1201,6 +1202,11 @@ export default defineComponent({
     white-space: nowrap;
   }
   
+  #play-pause-icon-button {
+    padding-inline: 1.5rem;
+    padding-block: 0.75rem;
+  }
+  
   // style input slider
   #time-slider[type=range] {
     -webkit-appearance: none;
@@ -1208,7 +1214,7 @@ export default defineComponent({
     width: 100%;
     margin: 0;
     padding: 0;
-    height: 1rem;
+    height: 1.25rem;
     border-radius: .5rem;
     background: rgba(255, 255, 255, 50%);
     pointer-events: auto;
@@ -1219,8 +1225,8 @@ export default defineComponent({
   .thumb-style {
     -webkit-appearance: none;
     appearance: none;
-    width: 1rem;
-    height: 1rem;
+    width: 1.25rem;
+    height: 1.25rem;
     border-radius: 50%;
     background: #fff;
     cursor: pointer;
