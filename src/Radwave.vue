@@ -519,7 +519,7 @@ export default defineComponent({
     }  as GotoRADecZoomParams;
     
     return {
-      showSplashScreen: false, //Action needed!! reset to true
+      showSplashScreen: true, //Action needed!! reset to true
       backgroundImagesets: [] as BackgroundImageset[],
       sheet: null as SheetType,
       layersLoaded: false,
