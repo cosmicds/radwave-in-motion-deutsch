@@ -183,6 +183,7 @@
         <icon-button
           id="play-pause-icon"
           :fa-icon="!(playing) ? 'play' : 'pause'"
+          fa-size='xl'
           @activate="() => {
             playing = !(playing);
           }"
@@ -1201,6 +1202,11 @@ export default defineComponent({
     white-space: nowrap;
   }
   
+  #play-pause-icon-button {
+    padding-inline: 1.5rem;
+    padding-block: 0.75rem;
+  }
+  
   // style input slider
   #time-slider[type=range] {
     -webkit-appearance: none;
@@ -1208,7 +1214,7 @@ export default defineComponent({
     width: 100%;
     margin: 0;
     padding: 0;
-    height: 1rem;
+    height: 1.25rem;
     border-radius: .5rem;
     background: rgba(255, 255, 255, 50%);
     pointer-events: auto;
@@ -1219,8 +1225,8 @@ export default defineComponent({
   .thumb-style {
     -webkit-appearance: none;
     appearance: none;
-    width: 1rem;
-    height: 1rem;
+    width: 1.25rem;
+    height: 1.25rem;
     border-radius: 50%;
     background: #fff;
     cursor: pointer;
