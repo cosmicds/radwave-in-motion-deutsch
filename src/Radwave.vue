@@ -501,7 +501,7 @@ export default defineComponent({
   data() {
     const initialOpacity = 0.5;
     const fadeStartPhase = 100;
-    const fadeEndPhase = 180;
+    const fadeEndPhase = 270;
     const phaseOpacitySlope = -initialOpacity / (fadeEndPhase - fadeStartPhase);
     const phaseOpacityIntercept = initialOpacity * fadeEndPhase / (fadeEndPhase - fadeStartPhase);
     const initial2DPosition = {
@@ -957,7 +957,7 @@ export default defineComponent({
     setupClusterLayers(): Promise<SpreadSheetLayer[]> {
       const color = Color.load(this.clusterColor);
       const promises: Promise<SpreadSheetLayer>[] = [];
-      for (let phase = -15; phase < 180; phase++) {
+      for (let phase = -15; phase < this.fadeEndPhase; phase++) {
         const prom = import(`./assets/radwave/RW_cluster_oscillation_${phase}_updated_radec.csv`).then(res => {
           let text = res.default;
           text = text.replace(/\n/g, "\r\n");
