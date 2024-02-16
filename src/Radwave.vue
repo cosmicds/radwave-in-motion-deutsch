@@ -551,6 +551,7 @@ export default defineComponent({
       phaseOpacityIntercept,
       clusterColor: "#1f3cf1",
       defaultClusterDecay: 15,
+      opacity2Dto3DFactor: 2.5,
 
       sunColor: "#ffff0a",
       sunLayer: null as SpreadSheetLayer | null,
@@ -726,6 +727,7 @@ export default defineComponent({
       bestFitOffsets = bestFitOffsets2D;
       this.clusterLayers.forEach(layer => {
         layer.set_decay(1);
+        layer.set_opacity(this.opacity2Dto3DFactor * layer.get_opacity());
       });
       
       this.setBackgroundImageByName(this.background2DImageset);
@@ -751,19 +753,17 @@ export default defineComponent({
     },
     
     set3DMode() {
-
       
       bestFitOffsets = bestFitOffsets3D;
       this.clusterLayers.forEach(layer => {
         layer.set_decay(this.defaultClusterDecay);
+        layer.set_opacity(layer.get_opacity() / this.opacity2Dto3DFactor);
       });
-      
 
       this.setBackgroundImageByName("Solar System");
       this.setForegroundImageByName("Solar System");
       this.sunLayer?.set_opacity(1);
       updateBestFitAnnotations(phase);
-
 
       return this.gotoRADecZoom({
         ...this.position3D,
@@ -771,7 +771,6 @@ export default defineComponent({
       }).catch((err) => {
         console.log(err);
       });
-
       
     },
     
