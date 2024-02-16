@@ -35,11 +35,6 @@
         v-click-outside="closeSplashScreen"
         :style="cssVars"
       >
-        <div
-          id="close-splash-button"
-          @click="closeSplashScreen"
-          >&times;
-        </div>
         <div id="splash-screen-text">
           <p>
             Want to surf a <span 
@@ -47,6 +42,11 @@
             >giant wave</span> in the Milky Way Galaxy? 
             <!-- see the <span style="color: red;">Radcliffe Wave</span> <span class="color-span">oscillating</span> through our Galaxy? -->
           </p>
+        </div>
+        <div
+          id="close-splash-button"
+          @click="closeSplashScreen"
+          >Continue &rangle;&rangle;&rangle;
         </div>
         <div id="splash-screen-acknowledgements">
           Brought to you by <a href="https://www.cosmicds.cfa.harvard.edu/" target="_blank" rel="noopener noreferrer">Cosmic Data Stories</a> and <a href="https://www.worldwidetelescope.org/home/" target="_blank" rel="noopener noreferrer">WorldWide Telescope</a>.
@@ -288,7 +288,21 @@
           <v-window-item>
             <v-card class="no-bottom-border-radius scrollable">
               <v-card-text class="info-text no-bottom-border-radius">
-                Information goes here
+                <h3>What is the RadWave?</h3>
+                <p>The more humans study our universe, the more we find that it is richer and more complex than we previously realized. The Radcliffe Wave (or RadWave for short) is a massive structure that was discovered in our Milky Way galaxy by astronomers João Alves, Catherine Zucker, Alyssa Goodman, and others in 2020<sup><a href="#2020team" class="highlight">[1]</a></sup>. The RadWave is made up of gas, dust, and stars loosely connected in a wave-like shape. It is so huge and so close to us that earlier scientists did not see that these parts were all connected. Learn more about the discovery of the RadWave here!</p>
+
+                <h3>How do scientists make predictions from models and data?</h3>
+                <p>The RadWave looks like a wave, but does it also move like a wave? Ralf Konietzka, with Goodman, Zucker, and others<sup><a href="#2024team" class="highlight">[2]</a></sup> used data from the Gaia satellite to answer this question by measuring the speed and direction of stars in different parts of the wave. Just like weather reporters can predict where a storm will go based on wind patterns, Konietzka uses the information about the RadWave’s current motion to predict how it will move in the future. The best model that fits the data is shown in this interactive.</p>
+
+                <h3>Why do the blue star clusters fade out?</h3>
+                <p>The time it takes for the RadWave to complete a “wave” is about 100 million years, but the clouds and young star clusters along the wave will disperse in less than 30 million years, so the blue dots that represent the star clusters fade out in the interactive view to reflect this.</p>
+
+                <h3>Science Credits</h3>
+                <p>[1] <span class="highlight" id="2020team">2020 RadWave Team: </span>
+                João Alves, Catherine Zucker, Alyssa A. Goodman, Joshua S. Speagle, Stefan Meingast, Thomas Robitaille, Douglas P. Finkbeiner, Edward F. Schlafly, and Gregory M. Green</p>
+                <p>[2] <span class="highlight" id="2024team">2024 RadWave in Motion Team:</span>
+                Ralf Konietzka, Alyssa A. Goodman, Catherine Zucker, Andreas Burkert, João Alves, Michael Foley, Cameren Swiggum, Maria Koller, and Núria Miret-Roig</p>
+                <v-spacer class="end-spacer"></v-spacer>
               </v-card-text>
             </v-card>
           </v-window-item>
@@ -342,7 +356,6 @@
                       A. David Weigel<br>
                       Jon Carifio<br>
                       </div>
-                      <v-spacer class="end-spacer"></v-spacer>
                     </v-col>
                   </v-row>
                   <v-row>
@@ -350,6 +363,7 @@
                       <funding-acknowledgement/>
                     </v-col>
                   </v-row>
+                  <v-spacer class="end-spacer"></v-spacer>
                 </v-container>              
               </v-card-text>
             </v-card>
@@ -1012,7 +1026,6 @@ export default defineComponent({
       }
       window.requestAnimationFrame(this.onAnimationFrame);
     }
-
   },
 
   watch: {
@@ -1108,9 +1121,28 @@ export default defineComponent({
 
 <style lang="less">
 
-.no-background {
-  background-image: none!important;
+
+
+//  =====================================
+
+#splash-screen #close-splash-button {
+  position: relative;
+  top: unset;
+  right: unset;
+  margin-top: 0.75em;
+  margin-bottom: 0.25em;
+  padding: 8px;
+  width: fit-content;
+  color: var(--accent-color);
+  outline: 2px solid var(--accent-color);
+  border-radius: 8px;
+  line-height: 1;
+  box-shadow: 0 0 10px 0px #ddd;
+  font-size: 0.7em;
+  text-align: center;
 }
+
+// =====================================
 
 #modal-loading {
 
