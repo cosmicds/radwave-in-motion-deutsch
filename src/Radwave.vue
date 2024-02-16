@@ -35,11 +35,6 @@
         v-click-outside="closeSplashScreen"
         :style="cssVars"
       >
-        <div
-          id="close-splash-button"
-          @click="closeSplashScreen"
-          >&times;
-        </div>
         <div id="splash-screen-text">
           <p>
             Want to surf a <span 
@@ -47,6 +42,11 @@
             >giant wave</span> in the Milky Way Galaxy? 
             <!-- see the <span style="color: red;">Radcliffe Wave</span> <span class="color-span">oscillating</span> through our Galaxy? -->
           </p>
+        </div>
+        <div
+          id="close-splash-button"
+          @click="closeSplashScreen"
+          >Continue &rangle;&rangle;&rangle;
         </div>
         <div id="splash-screen-acknowledgements">
           Brought to you by <a href="https://www.cosmicds.cfa.harvard.edu/" target="_blank" rel="noopener noreferrer">Cosmic Data Stories</a> and <a href="https://www.worldwidetelescope.org/home/" target="_blank" rel="noopener noreferrer">WorldWide Telescope</a>.
@@ -1122,6 +1122,29 @@ export default defineComponent({
 </script>
 
 <style lang="less">
+
+
+
+//  =====================================
+
+#splash-screen #close-splash-button {
+  position: relative;
+  top: unset;
+  right: unset;
+  margin-top: 0.75em;
+  margin-bottom: 0.25em;
+  padding: 8px;
+  width: fit-content;
+  color: var(--accent-color);
+  outline: 2px solid var(--accent-color);
+  border-radius: 8px;
+  line-height: 1;
+  box-shadow: 0 0 10px 0px #ddd;
+  font-size: 0.7em;
+  text-align: center;
+}
+
+// =====================================
 
 #modal-loading {
 
