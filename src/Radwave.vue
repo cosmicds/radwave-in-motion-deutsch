@@ -500,7 +500,7 @@ export default defineComponent({
     }
   },
   data() {
-    const initialOpacity = 0.5;
+    const initialOpacity = 0.2;
     const fadeStartPhase = 100;
     const fadeEndPhase = 270;
     const phaseOpacitySlope = -initialOpacity / (fadeEndPhase - fadeStartPhase);
@@ -549,7 +549,7 @@ export default defineComponent({
       phaseOpacitySlope,
       phaseOpacityIntercept,
       clusterColor: "#1f3cf1",
-      defaultClusterDecay: 5,
+      defaultClusterDecay: 15,
 
       sunColor: "#ffff0a",
       sunLayer: null as SpreadSheetLayer | null,
@@ -616,7 +616,7 @@ export default defineComponent({
       
     });
     this.resizeObserver = new ResizeObserver((_entries) => {
-      this.shinkWWT();
+      this.shrinkWWT();
     });
 
     // Pin the min and max zoom in 3D mode
@@ -790,7 +790,7 @@ export default defineComponent({
         this.mode = "full";
         phase = 0;
         
-        this.shinkWWT();
+        this.shrinkWWT();
         this.resizeObserver?.observe(document.body);
         
         return this.gotoRADecZoom({
@@ -865,12 +865,12 @@ export default defineComponent({
       this.setTime(new Date(time));
     },
     
-    shinkWWT(aspect: number = null as unknown as number) {
+    shrinkWWT(aspect: number = null as unknown as number) {
       // default aspect = 5.7
       if (aspect == null) {
         aspect = 5.7;
       }
-      console.log('shinkWWT');
+      console.log('shrinkWWT');
       
       const mainContent = document.querySelector(".wwtelescope-component") as HTMLElement;
       const width = mainContent.clientWidth;
@@ -955,14 +955,13 @@ export default defineComponent({
     },
 
     opacityForPhase(phase: number): number {
-      const adjustedPhase = 180 - Math.abs(180 - phase);
-      return Math.min(Math.max(this.phaseOpacitySlope * adjustedPhase + this.phaseOpacityIntercept, 0), this.initialOpacity);
+      return Math.min(Math.max(this.phaseOpacitySlope * phase + this.phaseOpacityIntercept, 0), this.initialOpacity);
     },
 
     setupClusterLayers(): Promise<SpreadSheetLayer[]> {
       const color = Color.load(this.clusterColor);
       const promises: Promise<SpreadSheetLayer>[] = [];
-      for (let phase = -15; phase < this.fadeEndPhase; phase++) {
+      for (let phase = -15; phase <= this.fadeEndPhase; phase++) {
         const prom = import(`./assets/radwave/RW_cluster_oscillation_${phase}_updated_radec.csv`).then(res => {
           let text = res.default;
           text = text.replace(/\n/g, "\r\n");
