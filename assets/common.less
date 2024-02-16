@@ -178,7 +178,7 @@ a {
 
 /* Splash screen */
 #splash-overlay {
-  background-image: radial-gradient( #a14d69,#715a6a,#6d7799,#6f95c1);
+  background-image: radial-gradient(#81a3ff,#81a3ff, #848bbc, #6d7799,#6f95c1);
   position: fixed;
   align-items: center;
   justify-content: center;
@@ -353,13 +353,14 @@ video {
 }
 
 .bottom-sheet {
-  .v-overlay__content {
+  & > .v-overlay__content {
     align-self: flex-end;
     padding: 0;
-    margin: 0;
-    max-width: 100%;
+    margin: 0 !important;
+    max-width: 100% !important;
     height: 34%;
   }
+
 }
   
 #tabs {
@@ -400,6 +401,10 @@ video {
   & h3 {
     margin-top: calc(var(--default-line-height));
     margin-bottom: calc(0.3 * var(--default-line-height));
+  }
+
+  & h4 {
+    color: #aec2fd;
   }
 
   & p {
@@ -445,7 +450,7 @@ video {
 }
 
 .scrollable {
-  overflow-y: auto;
+  overflow-y: auto !important;
 }
 
 .no-bottom-border-radius {
