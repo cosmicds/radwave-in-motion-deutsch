@@ -32,12 +32,12 @@
     >
       <div
         id="splash-screen"
-        v-click-outside="closeSplashScreen"
+        v-click-outside="showSplashScreen = false"
         :style="cssVars"
       >
         <div
           id="close-splash-button"
-          @click="closeSplashScreen"
+          @click="showSplashScreen = false"
           >&times;
         </div>
         <div id="splash-screen-text">
@@ -521,16 +521,19 @@ export default defineComponent({
       zoomDeg: 360,
       instant: true
     }  as GotoRADecZoomParams;
+
+    const searchParams = new URLSearchParams(window.location.search);
+    const showSplashScreen = searchParams.get("splash")?.toLowerCase() !== "false";
+    const userNotReady = searchParams.get("ready")?.toLowerCase() !== "false";
     
     return {
-      showSplashScreen: true, //Action needed!! reset to true
+      showSplashScreen,
       backgroundImagesets: [] as BackgroundImageset[],
       sheet: null as SheetType,
       layersLoaded: false,
       positionSet: false,
       
-      userNotReady: true, //Action needed!! reset to true
-
+      userNotReady,
       
       accentColor: "#427cff",
       accentColor2: "#FF0000",
@@ -611,6 +614,7 @@ export default defineComponent({
         this.clusterLayers = clusterLayers;
         this.setTime(startDate);
         updateSlider(phase);
+        updateBestFitAnnotations(0);
         window.requestAnimationFrame(this.onAnimationFrame);
         this.layersLoaded = true;
       });
@@ -627,6 +631,11 @@ export default defineComponent({
     // Patch the zoom function to account for min zoom as well
     // See upstream fix at https://github.com/WorldWideTelescope/wwt-webgl-engine/pull/292
     WWTControl.singleton.zoom = zoom.bind(WWTControl.singleton);
+
+    if (!(this.showSplashScreen || this.userNotReady)) {
+      console.log("HERE");
+      this.playing = true;
+    }
     
   },
 
@@ -703,15 +712,14 @@ export default defineComponent({
   },
 
   methods: {
-    closeSplashScreen() {
-      this.showSplashScreen = false; 
+
+    setupPlayWaitCondition() {
       // Promise based wait for isLoading to be false
       asyncWaitForCondition(() => (!this.isLoading && !this.userNotReady), 100).then(() => {
         setTimeout(() => {
           this.playing = true;
         }, 500);
       });
-      
     },
     
     async loadHipsWTML () {
@@ -1001,6 +1009,7 @@ export default defineComponent({
       let newPhase = phase;
       if (SpaceTimeController.get_syncToClock()) {
         if (SpaceTimeController.get_now() >= endDate) {
+          console.log("HERE2");
           SpaceTimeController.set_now(startDate);
           this.playing = false;
           this.playCount += 1;
@@ -1019,6 +1028,19 @@ export default defineComponent({
   },
 
   watch: {
+
+    showSplashScreen(show: boolean) {
+      if (!show && !this.userNotReady) {
+        this.setupPlayWaitCondition();
+      }
+    },
+
+    userNotReady(notReady: boolean) {
+      if (!notReady) {
+        this.setupPlayWaitCondition();
+      }
+    },
+
     playing(play: boolean) {
       if (!play) {
         this.playCount += 1;
