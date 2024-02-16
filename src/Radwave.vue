@@ -326,6 +326,7 @@
                     <v-col cols="12">
                       <div class="credits">
                       <h3>Credits:</h3>
+                      <p>This Data Story is powered by WorldWide Telescope.</p>
                       <h4><a href="https://www.cosmicds.cfa.harvard.edu/" target="_blank" rel="noopener noreferrer">CosmicDS</a> Team:</h4>
                       Jon Carifio<br>
                       John Lewis<br>
@@ -526,7 +527,7 @@ export default defineComponent({
       layersLoaded: false,
       positionSet: false,
       
-      userNotReady: false, //Action needed!! reset to true
+      userNotReady: true, //Action needed!! reset to true
 
       
       accentColor: "#427cff",
@@ -657,6 +658,7 @@ export default defineComponent({
     cssVars() {
       return {
         '--accent-color': this.accentColor,
+        '--accent-color2': this.accentColor2,
         '--app-content-height': this.showTextSheet ? '66%' : '100%',
       };
     },
@@ -1112,6 +1114,7 @@ export default defineComponent({
 
 #modal-loading {
 
+  background-color: #000;
 
   @media (max-width: 699px) {
     background-image: url("./assets/radwave_landing_mobile.png");
