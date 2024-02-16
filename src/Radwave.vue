@@ -16,7 +16,7 @@
       :wwt-namespace="wwtNamespace"
       :location="{top: '5rem', right: '1rem'}"
       :offset-center="{x: 0, y: 0}"
-      :other-variables="{position3D: position3D, position2D: position2D, mode: modeReactive}"
+      :other-variables="{position3D: position3D, position2D: position2D, mode}"
       text-shadow="none"
       font-size="0.8em"
     ></wwt-hud>
@@ -96,7 +96,7 @@
     <!-- This block contains the elements (e.g. icon buttons displayed at/near the top of the screen -->
 
     <div class="top-content">
-      <div v-if="modeReactive != null" id="left-buttons">
+      <div v-if="mode != null" id="left-buttons">
         <icon-button
           fa-icon="house"
           @activate="() => {
@@ -135,24 +135,24 @@
           tooltip-location="bottom"
         >
         <template v-slot:button>
-          <span v-if="modeReactive != 'full'" class="no-select">View the Full Radcliffe Wave</span>
-          <v-icon v-if="modeReactive == 'full'">mdi-arrow-left</v-icon>
+          <span v-if="mode != 'full'" class="no-select">View the Full Radcliffe Wave</span>
+          <v-icon v-if="mode == 'full'">mdi-arrow-left</v-icon>
         </template>
         </icon-button>
         
         <icon-button
-          v-if="(playCount > 0) ?? (modeReactive == 'full')"
-          @activate="modeReactive = modeReactive == '3D' ? '2D' : '3D'"
+          v-if="(playCount > 0) ?? (mode == 'full')"
+          @activate="mode = (mode === '3D') ? '2D' : '3D'"
           :color="buttonColor"
           tooltip-text="Switch modes"
           tooltip-location="start"
         >
         <template v-slot:button>
-          <span class="no-select">See this {{ modeReactive == '3D' ? ' on the Sky (2D)' : 'in the Galaxy (3D)' }}</span>
+          <span class="no-select">See this {{ mode == '3D' ? ' on the Sky (2D)' : 'in the Galaxy (3D)' }}</span>
         </template>
         </icon-button>
         <icon-button
-          v-if="(playCount > 0) && modeReactive=='3D'"
+          v-if="(playCount > 0) && mode=='3D'"
           @activate="() => {
             positionReset();
             timeReset();
@@ -179,7 +179,7 @@
     <!-- This block contains the elements (e.g. the project icons) displayed along the bottom of the screen -->
 
     <div class="bottom-content">
-      <div v-if="modeReactive != '2D'" id="time-controls">
+      <div v-if="mode != '2D'" id="time-controls">
         <icon-button
           id="play-pause-icon"
           :fa-icon="!(playing) ? 'play' : 'pause'"
@@ -203,7 +203,7 @@
       </div>
       <div v-else id="time-controls" style="width:50%">
         <v-select
-          v-if="modeReactive == '2D'"
+          v-if="mode == '2D'"
           v-model="background2DImageset"
           :items="allSkyImagesets"
           label="Background"
@@ -372,7 +372,7 @@ import { Annotation, Color, PolyLine, SpaceTimeController, SpreadSheetLayer, WWT
 // @ts-ignore
 import { Coordinates } from "@wwtelescope/engine";
 import { GotoRADecZoomParams } from "@wwtelescope/engine-pinia";
-import { AltTypes, AltUnits, MarkerScales, RAUnits } from "@wwtelescope/engine-types";
+import { AltTypes, AltUnits, ImageSetType, MarkerScales, RAUnits } from "@wwtelescope/engine-types";
 
 import { zoom } from "./wwt-hacks";
 
@@ -415,7 +415,6 @@ const endTime = endDate.getTime();
 
 let phase = 0;
 let altFactor = 1;
-let mode = "3D" as "2D" | "3D" | "full" | null;
 
 const phaseRowCount = 300;
 
@@ -461,7 +460,8 @@ function addPhasePointsToAnnotation(layer: SpreadSheetLayer, annotation: Annotat
     let alt = row[dCol];
     alt = (altFactor * alt);
     const pos = Coordinates.geoTo3dRad(row[latCol], row[lngCol], alt);
-    if (mode == "3D") {
+    const threeD = WWTControl.singleton.renderType === ImageSetType.solarSystem;
+    if (threeD) {
       pos.rotateX(ecliptic);
     }
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -511,6 +511,8 @@ export default defineComponent({
       zoomDeg: 360
     } as Omit<GotoRADecZoomParams,'instant'>;
     
+    const mode = WWTControl.singleton.renderType === ImageSetType.solarSystem ? "3D" : "2D";
+
     const fullwavePosition = {
       raRad: 0.6984155220905679, 
       decRad: 0.7132099678793872, 
@@ -552,7 +554,7 @@ export default defineComponent({
       sunColor: "#ffff0a",
       sunLayer: null as SpreadSheetLayer | null,
       
-      modeReactive: mode as "2D" | "3D" | "full" | null,
+      mode: mode as "2D" | "3D" | "full" | null,
       resizeObserver: null as ResizeObserver | null,
       background2DImageset: "Deep Star Maps 2020",
       position3D: this.initialCameraParams as Omit<GotoRADecZoomParams,'instant'>,
@@ -775,18 +777,18 @@ export default defineComponent({
       // to view in the full wave you need to adjust the height
       // of the window/canvas to have an W:H ration of 5.7
       let old3D = null as unknown as Omit<GotoRADecZoomParams,'instant'>;
-      if (this.modeReactive == 'full') {
-        this.modeReactive = this.previousMode;
+      if (this.mode == 'full') {
+        this.mode = this.previousMode;
         this.positionReset();
         return;
-      } else if (this.modeReactive == '3D') {
+      } else if (this.mode == '3D') {
         old3D = this.wwtPosition;
       }
       
       return this.set2DMode().then(() => {
-        this.previousMode = this.modeReactive;
-        this.modeReactive = "full";
-        phase=0;
+        this.previousMode = this.mode;
+        this.mode = "full";
+        phase = 0;
         
         this.shinkWWT();
         this.resizeObserver?.observe(document.body);
@@ -796,7 +798,9 @@ export default defineComponent({
           instant: false}).catch((err) => {
           console.log(err);
         }).then(() => {
-          if (old3D) {this.position3D = old3D;}
+          if (old3D) {
+            this.position3D = old3D;
+          }
         });
       });
       
@@ -830,14 +834,14 @@ export default defineComponent({
       
       // only reset the current mode
       let pos = null as unknown as Omit<GotoRADecZoomParams, "instant">;
-      if (this.modeReactive == "2D") {
+      if (this.mode == "2D") {
         this.position2D = this.initial2DPosition;
         pos = this.position2D;
         
-      } else if (this.modeReactive == "3D") {
+      } else if (this.mode == "3D") {
         this.position3D = this.initialCameraParams;
         pos = this.position3D; 
-      } else if (this.modeReactive == 'full') {
+      } else if (this.mode == 'full') {
         pos = this.fullwavePosition;
       }
       
@@ -1024,7 +1028,7 @@ export default defineComponent({
     
     background2DImageset(name: string) {
       
-      if (this.modeReactive == "2D") {
+      if (this.mode == "2D") {
         this.setBackgroundImageByName(name);
         return;
       }
@@ -1062,8 +1066,7 @@ export default defineComponent({
     //   deep: true
     // },
     
-    modeReactive(newVal, oldVal) {
-      mode = newVal;
+    mode(newVal, oldVal) {
       if (oldVal == newVal) {
         if (newVal == "2D") {
           this.set2DMode();
