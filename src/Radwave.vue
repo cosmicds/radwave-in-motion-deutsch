@@ -511,7 +511,7 @@ export default defineComponent({
       zoomDeg: 360
     } as Omit<GotoRADecZoomParams,'instant'>;
     
-    const mode = WWTControl.singleton.renderType === ImageSetType.solarSystem ? "3D" : "2D";
+    const mode = "3D";
 
     const fullwavePosition = {
       raRad: 0.6984155220905679, 
