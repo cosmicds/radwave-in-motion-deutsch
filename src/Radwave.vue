@@ -36,20 +36,17 @@
         :style="cssVars"
       >
         <div id="splash-screen-text">
-          <p>
-            Want to surf a <span 
-            :style="{'color': accentColor}"
-            >giant wave</span> in the Milky Way Galaxy? 
-            <!-- see the <span style="color: red;">Radcliffe Wave</span> <span class="color-span">oscillating</span> through our Galaxy? -->
+          <p>Möchtest Du eine <span 
+            :style="{'color': accentColor}">riesige Welle</span> in unserer Heimatgalaxie, der Milchstraße, surfen?
           </p>
         </div>
         <div
           id="close-splash-button"
           @click="closeSplashScreen"
-          >Continue &rangle;&rangle;&rangle;
+          >Weiter &rangle;&rangle;&rangle;
         </div>
         <div id="splash-screen-acknowledgements">
-          Brought to you by <a href="https://www.cosmicds.cfa.harvard.edu/" target="_blank" rel="noopener noreferrer">Cosmic Data Stories</a> and <a href="https://www.worldwidetelescope.org/home/" target="_blank" rel="noopener noreferrer">WorldWide Telescope</a>.
+          Präsentiert von <a href="https://www.cosmicds.cfa.harvard.edu/" target="_blank" rel="noopener noreferrer">Cosmic Data Stories</a> und <a href="https://www.worldwidetelescope.org/home/" target="_blank" rel="noopener noreferrer">WorldWide Telescope</a>.
           
           <div id="splash-screen-logos">
             <credit-logos/>
