@@ -288,14 +288,14 @@
           <v-window-item>
             <v-card class="no-bottom-border-radius scrollable">
               <v-card-text class="info-text no-bottom-border-radius">
-                <h3>What is the RadWave?</h3>
-                <p>The more humans study our universe, the more we find that it is richer and more complex than we previously realized. The Radcliffe Wave (or RadWave for short) is a massive structure that was discovered in our Milky Way galaxy by astronomers João Alves, Catherine Zucker, Alyssa Goodman, and others in 2020<sup><a href="#2020team" class="highlight">[1]</a></sup>. The RadWave is made up of gas, dust, and stars loosely connected in a wave-like shape. It is so huge and so close to us that earlier scientists did not see that these parts were all connected. Learn more about the discovery of the RadWave here!</p>
+                <h3>Was ist die Radcliffe Welle?</h3>
+                <p>Je mehr Menschen unser Universum erforschen, desto mehr stellen wir fest, dass es reichhaltiger und komplexer ist, als wir bisher gedacht haben. Die Radcliffe Welle (oder kurz RadWave) ist eine massive Struktur, die von den Astronomen João Alves, Catherine Zucker, Alyssa Goodman und anderen im Jahr 2020 in unserer Milchstraße entdeckt wurde<sup><a href="#2020team" class="highlight">[1]</a></sup>. Die RadWave besteht aus Gas, Staub und Sternen, die lose in einer wellenförmigen Form angeordnet sind. Sie ist so riesig und befindet sich so nahe bei uns, dass frühere Wissenschaftler nicht erkannten, dass die Bestandteile der Welle alle miteinander verbunden sind. Hier erfährst Du mehr über die Entdeckung der RadWave!</p>
 
-                <h3>How do scientists make predictions from models and data?</h3>
-                <p>The RadWave looks like a wave, but does it also move like a wave? Ralf Konietzka, with Goodman, Zucker, and others<sup><a href="#2024team" class="highlight">[2]</a></sup> used data from the Gaia satellite to answer this question by measuring the speed and direction of stars in different parts of the wave. Just like weather reporters can predict where a storm will go based on wind patterns, Konietzka uses the information about the RadWave’s current motion to predict how it will move in the future. The best model that fits the data is shown in this interactive.</p>
+                <h3>Wie machen Wissenschaftler Vorhersagen aus Modellen und Daten?</h3>
+                <p>Die RadWave sieht aus wie eine Welle, aber bewegt sie sich auch wie eine Welle? Ralf Konietzka hat zusammen mit Goodman, Zucker und anderen<sup><a href="#2024team" class="highlight">[2]</a></sup> Daten des Gaia-Satelliten verwendet, um diese Frage zu beantworten, indem er die Geschwindigkeit und Richtung von Sternen in verschiedenen Teilen der Welle gemessen hat. So wie Wetterberichterstatter anhand von Mustern im Wind vorhersagen können, wohin ein Sturm ziehen wird, nutzt Konietzka die Informationen über die aktuelle Bewegung der RadWave, um vorherzusagen, wie diese sich in Zukunft bewegen wird. Das beste Modell, welches zu den Daten passt, wird in dieser interaktiven Darstellung gezeigt.</p>
 
-                <h3>Why do the blue star clusters fade out?</h3>
-                <p>The time it takes for the RadWave to complete a “wave” is about 100 million years, but the clouds and young star clusters along the wave will disperse in less than 30 million years, so the blue dots that represent the star clusters fade out in the interactive view to reflect this.</p>
+                <h3>Warum verblassen die blauen Sternencluster? </h3>
+                <p>Die Zeit, welche die RadWave benötigt, um eine "Periode" zu durchlaufen, beträgt etwa 100 Millionen Jahre. Die Wolken und jungen Sternencluster entlang der Welle werden sich jedoch bereits in weniger als 30 Millionen Jahren auflösen. Daher verblassen die blauen Punkte, welche die Sternencluster darstellen, in der interaktiven Ansicht.</p>
 
                 <h3>Science Credits</h3>
                 <p>[1] <span class="highlight" id="2020team">2020 RadWave Team: </span>
