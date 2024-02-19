@@ -1149,11 +1149,11 @@ export default defineComponent({
   background-color: #000;
 
   @media (max-width: 699px) {
-    background-image: url("./assets/radwave_landing_mobile.png");
+    background-image: url("./assets/radwave_landing_mobile_german.png");
   }
 
   @media (min-width: 700px) {
-    background-image: url("./assets/radwave_landing_desktop.png");
+    background-image: url("./assets/radwave_landing_desktop_german.png");
   }
 
   background-position: center;
