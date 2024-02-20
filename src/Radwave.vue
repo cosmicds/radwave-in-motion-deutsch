@@ -233,12 +233,21 @@
           @keyup.enter="showVideoSheet = false"
           tabindex="0"
         ></font-awesome-icon>
-        <video
+        <!-- <video
           controls
           id="info-video"
         >
           <source src="./assets/ralf_german_short.mp4" type="video/mp4">
-        </video>
+        </video> -->
+        <iframe 
+          id="info-video"
+          width="560" height="315" 
+          src="https://www.youtube.com/embed/Z25n-s_DMMg?si=7kXU2YzWf5l_izXN" 
+          title="YouTube video player" 
+          frameborder="0" 
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+          allowfullscreen>
+        </iframe>
       </div>
     </v-dialog>
 
@@ -334,6 +343,12 @@
                   </v-row>
                   <v-row>
                     <v-col cols="12">
+                      <div class="credits">
+                        <h3>Science Credits:</h3>
+                        Ralf Konietzka<br>
+                        Catherine Zucker<br>
+                        Alyssa A. Goodman<br>
+                      </div>
                       <div class="credits">
                       <h3>Credits:</h3>
                       <p>This Data Story is powered by WorldWide Telescope.</p>
@@ -1291,5 +1306,12 @@ export default defineComponent({
 
 .v-leave-to {
   opacity: 0;
+}
+
+video, #info-video {
+  margin: auto;
+  max-width: 100%;
+  object-fit: contain;
+
 }
 </style>
